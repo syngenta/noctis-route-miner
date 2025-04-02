@@ -35,6 +35,8 @@ This will compile the project and produce the JAR file for use.
 
 ## Usage  
 After installation, you can use the following Cypher query to invoke the route extraction functionality:
+
+**Directly through Neo4j Desktop:**
 ----
 $ cypher
 MATCH (my_target {uid: UID1})
@@ -49,6 +51,17 @@ CALL noctis.route.miner(
 YIELD relationships
 ----
 Replace the MATCH statement with any other query to fetch the desired molecule, and adjust node labels, relationship types, and parameters as needed. 
+
+**Through NOCTIS:**
+
+----
+$ python
+
+repo = Neo4jRepository(uri=YOUR_URI, username=USER, password=SECUREPASSWORD, database=DB)
+routes = repo.execute_query('get_route', root_node_uid="UID1", max_chemical_equations=7, node_stop_property='REDFLAG')
+
+----
+For more details, we invite you to check NOCTIS repo or the publication. 
 
 **Attention!!!**: A uid property is required on all Molecule and ChemicalEquation nodes for the algorithm to run correctly.
 
