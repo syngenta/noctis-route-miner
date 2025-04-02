@@ -1,0 +1,108 @@
+// graph 1:
+//CREATE CONSTRAINT IF NOT EXISTS ON (c:C) ASSERT c.uid IS UNIQUE;
+//CREATE CONSTRAINT IF NOT EXISTS ON  (r:R) ASSERT r.uid IS UNIQUE;
+
+// below is for > 4.4
+//CREATE CONSTRAINT IF NOT EXISTS FOR (c:C) REQUIRE (c.uid) IS UNIQUE;
+//CREATE CONSTRAINT IF NOT EXISTS FOR  (r:R) REQUIRE (r.uid) IS UNIQUE;
+
+MERGE (:C { uid:1 })
+MERGE (:C { uid:2 })
+MERGE (:C { uid:3 })
+MERGE (c4:C:Stop { uid:4 }) set c4.stop ='foo'
+MERGE (:C { uid:5 })
+MERGE (:C { uid:6 })
+MERGE (:C { uid:7 })
+MERGE (:C { uid:8 })
+MERGE (:R { uid:101 })
+MERGE (:R { uid:102 })
+MERGE (:R { uid:103 })
+MERGE (:R { uid:104 })
+MERGE (:R { uid:105 })
+MERGE (:R { uid:106 })
+;
+MATCH (a:C { uid:1 }), (b:R { uid:101 }) MERGE (a)<-[:OUT]-(b) ;
+MATCH (a:C { uid:1 }), (b:R { uid:102 }) MERGE (a)<-[:OUT]-(b) ;
+MATCH (a:C { uid:1 }), (b:R { uid:103 }) MERGE (a)<-[:OUT]-(b) ;
+MATCH (a:R { uid:101 }), (b:C { uid:2 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:R { uid:102 }), (b:C { uid:2 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:R { uid:102 }), (b:C { uid:3 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:R { uid:103 }), (b:C { uid:2 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:R { uid:103 }), (b:C { uid:3 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:R { uid:103 }), (b:C { uid:4 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:C { uid:2 }), (b:R { uid:104 }) MERGE (a)<-[:OUT]-(b) ;
+MATCH (a:C { uid:4 }), (b:R { uid:105 }) MERGE (a)<-[:OUT]-(b) ;
+MATCH (a:C { uid:4 }), (b:R { uid:106 }) MERGE (a)<-[:OUT]-(b) ;
+MATCH (a:R { uid:104 }), (b:C { uid:5 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:R { uid:105 }), (b:C { uid:6 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:R { uid:105 }), (b:C { uid:7 }) MERGE (a)<-[:INP]-(b) ;
+MATCH (a:R { uid:106 }), (b:C { uid:8 }) MERGE (a)<-[:INP]-(b) ;
+
+
+// graph 2:
+//CREATE CONSTRAINT on (c:MMM) ASSERT c.uid IS UNIQUE;
+//CREATE CONSTRAINT on (r:CCC) ASSERT r.uid IS UNIQUE;
+
+MERGE (:MMM { uid:1 })
+MERGE (:MMM { uid:2 })
+MERGE (:MMM { uid:3 })
+MERGE (:MMM { uid:4 })
+MERGE (:MMM { uid:5 })
+MERGE (:MMM { uid:6 })
+MERGE (:MMM { uid:7 })
+MERGE (:MMM { uid:8 })
+MERGE (:MMM { uid:9 })
+MERGE (:MMM { uid:10 })
+MERGE (:MMM { uid:11 })
+MERGE (:MMM { uid:12 })
+MERGE (:MMM { uid:13 })
+MERGE (:MMM { uid:14 })
+MERGE (:CCC { uid:101 })
+MERGE (:CCC { uid:102 })
+MERGE (:CCC { uid:103 })
+MERGE (:CCC { uid:104 })
+MERGE (:CCC { uid:105 })
+MERGE (:CCC { uid:106 })
+MERGE (:CCC { uid:107 })
+MERGE (:CCC { uid:108 })
+MERGE (:CCC { uid:109 })
+MERGE (:CCC { uid:110 })
+MERGE (:CCC { uid:111 })
+MERGE (:CCC { uid:112 })
+MERGE (:CCC { uid:113 })
+;
+MATCH (a:MMM { uid:1 }), (b:CCC { uid:101 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:1 }), (b:CCC { uid:102 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:1 }), (b:CCC { uid:103 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:CCC { uid:101 }), (b:MMM { uid:2 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:102 }), (b:MMM { uid:2 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:102 }), (b:MMM { uid:3 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:103 }), (b:MMM { uid:2 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:103 }), (b:MMM { uid:3 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:103 }), (b:MMM { uid:4 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:MMM { uid:2 }), (b:CCC { uid:104 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:4 }), (b:CCC { uid:105 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:4 }), (b:CCC { uid:106 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:CCC { uid:104 }), (b:MMM { uid:5 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:105 }), (b:MMM { uid:6 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:105 }), (b:MMM { uid:7 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:106 }), (b:MMM { uid:8 }) MERGE (a)<-[:REACTANT]-(b) ;
+;
+MATCH (a:MMM { uid:7 }), (b:CCC { uid:103 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:3 }), (b:CCC { uid:107 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:2 }), (b:CCC { uid:107 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:9 }), (b:CCC { uid:108 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:9 }), (b:CCC { uid:109 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:8 }), (b:CCC { uid:110 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:8 }), (b:CCC { uid:111 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:5 }), (b:CCC { uid:112 }) MERGE (a)<-[:PRODUCT]-(b) ;
+MATCH (a:MMM { uid:5 }), (b:CCC { uid:113 }) MERGE (a)<-[:PRODUCT]-(b) ;
+;
+MATCH (a:CCC { uid:101 }), (b:MMM { uid:5 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:107 }), (b:MMM { uid:9 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:108 }), (b:MMM { uid:10 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:109 }), (b:MMM { uid:11 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:110 }), (b:MMM { uid:12 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:111 }), (b:MMM { uid:13 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:112 }), (b:MMM { uid:2 }) MERGE (a)<-[:REACTANT]-(b) ;
+MATCH (a:CCC { uid:113 }), (b:MMM { uid:14 }) MERGE (a)<-[:REACTANT]-(b) ;
