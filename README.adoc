@@ -58,7 +58,7 @@ Replace the MATCH statement with any other query to fetch the desired molecule, 
 $ python
 
 repo = Neo4jRepository(uri=YOUR_URI, username=USER, password=SECUREPASSWORD, database=DB)
-routes = repo.execute_query('get_route', root_node_uid="UID1", max_chemical_equations=7, node_stop_property='REDFLAG')
+routes = repo.execute_query('get_route', root_node_uid="UID1", max_number_reactions=7, node_stop_property='REDFLAG')
 
 ----
 For more details, we invite you to check NOCTIS repo or the publication. 
