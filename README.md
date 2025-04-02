@@ -1,1 +1,57 @@
-# noctis-route-miner
+# Noctis Route Miner
+
+Noctis Route Miner is part of the Noctis publication and is a tool designed to extract all possible synthetic routes from a reaction network. Consider a chemical network consisting of chemical equations (reactions) and molecules (compounds). In this network, a molecule produced by one reaction might serve as an ingredient for another reaction. A "route" is defined as a sufficient subgraph required to produce a given compound. The algorithm uses a breadth-first search approach to systematically mine routes—from the target compound to the starting materials—within a network composed of molecule and chemical equation nodes. The tool is implemented as a Java plugin and is accessible via a dedicated Neo4j query either directly through Neo4j Desktop or through Noctis. For more details about the design and workflow, we invite you to read the article.
+
+## Installation
+
+### Using the Compiled JAR
+
+**Download the Latest Release:**  
+Grab the latest JAR file from the Releases page (replace `#` with the actual URL).
+
+**Install in Neo4j:**  
+- Drop the JAR file into your Neo4j plugins folder.  
+- Restart your Neo4j database.
+
+### Building from Source
+
+If you prefer to build the project yourself:
+
+**Clone the Repository:**
+
+bash
+git clone https://github.com/your_username/noctis-route-miner.git
+cd noctis-route-miner
+Build with Gradle (Windows Example):
+
+bash
+Copy
+.\gradlew build
+This will compile the project and produce the JAR file for use.
+
+Usage
+After installation, you can use the following Cypher query to invoke the route extraction functionality:
+
+cypher
+Copy
+MATCH (my_target {uid: UID1})
+CALL noctis.route.miner(
+  my_target, 
+  'Molecule', 
+  'ChemicalEquation', 
+  '<REACTANT', 
+  '<PRODUCT', 
+  {maxNumberReactions: 4, nodesStopProperty: 'this_is_a_stop_property'}
+)
+YIELD relationships
+Replace the MATCH statement with any other query to fetch the desired molecule, and adjust node labels, relationship types, and parameters as needed. Attention: A uid property is required on all Molecule and ChemicalEquation nodes for the algorithm to run correctly.
+
+Contributing
+Contributions are welcome! If you have ideas for improvements or encounter issues, please feel free to fork the repository and submit a pull request. For major changes, it is recommended to open an issue first to discuss what you would like to change.
+
+License
+This project is distributed under the LICENSE NAME HERE.
+(Replace with your actual license details.)
+
+Contact
+For any questions or further information, please open an issue on the repository or contact the maintainers.
