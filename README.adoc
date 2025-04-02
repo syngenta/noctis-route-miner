@@ -47,7 +47,7 @@ cd noctis-route-miner
 $ bash
 .\gradlew build
 ----
-This will compile the project and produce the JAR file for use.
+This will compile the project and produce the JAR file for use in ./build/libs folder
 
 ## Usage  
 After installation, you can use the following Cypher query to invoke the route extraction functionality:
