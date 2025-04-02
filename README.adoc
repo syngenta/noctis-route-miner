@@ -29,7 +29,6 @@ cd noctis-route-miner
 **Build with Gradle (Windows Example):**
 ----
 $ bash
-Copy
 .\gradlew build
 ----
 This will compile the project and produce the JAR file for use.
