@@ -7,7 +7,7 @@ Noctis Route Miner is part of the Noctis publication. In this repository, you wi
 ### Using the Compiled JAR
 
 **Download the Latest Release:**  
-Grab the latest JAR file from the Releases page (replace `#` with the actual URL).
+Grab the latest JAR file from the Releases page.
 
 **Install in Neo4j:**  
 - Drop the JAR file into your Neo4j plugins folder.  
