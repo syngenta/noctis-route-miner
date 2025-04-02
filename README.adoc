@@ -72,7 +72,6 @@ Replace the MATCH statement with any other query to fetch the desired molecule, 
 
 ----
 $ python
-
 repo = Neo4jRepository(uri=YOUR_URI, username=USER, password=SECUREPASSWORD, database=DB)
 routes = repo.execute_query('get_route', root_node_uid="UID1", max_number_reactions=7, node_stop_property='REDFLAG')
 
