@@ -2,6 +2,22 @@
 
 Noctis Route Miner is part of the Noctis publication. In this repository, you will find a tool designed to extract all possible synthetic routes from a reaction network. Consider a chemical network consisting of chemical equations (reactions) and molecules (compounds). In this network, a molecule produced by one reaction might serve as an ingredient for another reaction. A "route" is defined as a sufficient subgraph required to produce a given compound. The algorithm uses a breadth-first search approach to systematically mine routes—from the target compound to the starting materials. The tool is implemented as a Java plugin and is accessible via a dedicated Neo4j query either directly through Neo4j Desktop or through Noctis. For more details about the design and workflow, we invite you to read the article.
 
+## Requirements
+
+- Java Development Kit (JDK) 17
+- Gradle (or use the included Gradle wrapper)
+
+## Project Setup
+
+This project is a Java library built with Gradle, designed to work with Neo4j.
+
+### Dependencies
+
+- Neo4j Kernel 5.14.0
+- JUnit Jupiter 5.8.2 (testing)
+- Neo4j Harness 5.14.0 (testing)
+- Mockito Core 4.3.0 (testing)
+
 ## Installation
 
 ### Using the Compiled JAR
