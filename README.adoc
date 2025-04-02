@@ -5,7 +5,7 @@ Noctis Route Miner is part of the Noctis publication. In this repository, you wi
 ## Requirements
 
 - Java Development Kit (JDK) 17
-- Gradle (or use the included Gradle wrapper)
+- https://gradle.org/install/[Gradle] (or use the included Gradle wrapper) 
 
 ## Project Setup
 
