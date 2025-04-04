@@ -27,7 +27,7 @@ public class RouteFinder {
     @Context
     public Log log;
 
-    @Procedure(name="noctis.RouteMiner", mode = Mode.READ)
+    @Procedure(name="noctis.route.miner", mode = Mode.READ)
     public Stream<RelationshipsNewRouteResult> find(@Name("startNode") Node startNode,
                                                            @Name("compound label") String compoundLabel,
                                                            @Name("reaction label") String reactionLabel,

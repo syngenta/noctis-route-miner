@@ -53,8 +53,8 @@ class RouteFinderTest {
 
     private final ChemPathDescriptor converter = new ChemPathDescriptor();
 
-    private static final String GRAPH1_CALL = "CALL noctis.RouteMiner(start, 'C', 'R', '<INP', '<OUT', {}) YIELD relationships RETURN relationships";
-    private static final String GRAPH2_CALL = "CALL noctis.RouteMiner(start, 'MMM', 'CCC', '<REACTANT', '<PRODUCT', {}) YIELD relationships RETURN relationships";
+    private static final String GRAPH1_CALL = "CALL noctis.route.miner(start, 'C', 'R', '<INP', '<OUT', {}) YIELD relationships RETURN relationships";
+    private static final String GRAPH2_CALL = "CALL noctis.route.miner(start, 'MMM', 'CCC', '<REACTANT', '<PRODUCT', {}) YIELD relationships RETURN relationships";
 
 
     @Test
@@ -108,7 +108,7 @@ class RouteFinderTest {
     @Test
     void graph1FromC1WithStopPropertyAtC4(GraphDatabaseService db) {
         assertRoutes(db, "MATCH (start:C {uid:1}) "
-                        + "CALL noctis.RouteMiner(start, 'C', 'R', '<INP', '<OUT', {nodeStopProperty:'stop'}) " +
+                        + "CALL noctis.route.miner(start, 'C', 'R', '<INP', '<OUT', {nodeStopProperty:'stop'}) " +
                         "YIELD relationships RETURN relationships" ,
                 new String[]{"1<-101", "101<-2", "2<-104", "104<-5"},
                 new String[]{"1<-102", "102<-3", "102<-2", "2<-104", "104<-5"},
@@ -121,7 +121,7 @@ class RouteFinderTest {
     @Test
     void graph1FromC1WithMaxR(GraphDatabaseService db) {
         assertRoutes(db, "MATCH (start:C {uid:1}) "
-                        + "CALL noctis.RouteMiner(start, 'C', 'R', '<INP', '<OUT', {maxNumberReactions:1}) " +
+                        + "CALL noctis.route.miner(start, 'C', 'R', '<INP', '<OUT', {maxNumberReactions:1}) " +
                         "YIELD relationships RETURN relationships" ,
                 new String[]{"1<-101", "101<-2"},
                 new String[]{"1<-102", "102<-3", "102<-2"},
