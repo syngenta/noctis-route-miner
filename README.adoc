@@ -55,16 +55,23 @@ After installation, you can use the following Cypher query to invoke the route e
 **Directly through Neo4j Desktop:**
 ----
 $ cypher
-MATCH (my_target {uid: UID1})
+MATCH (paracetamol: {smiles: 'CC(=O)Nc1ccc(O)cc1'})
 CALL noctis.route.miner(
-  my_target, 
-  'Molecule', 
-  'ChemicalEquation', 
-  '<REACTANT', 
-  '<PRODUCT', 
-  {maxNumberReactions: 4, nodesStopProperty: 'this_is_a_stop_property'}
+  paracetamol,
+  'Molecule',
+  'ChemicalEquation',
+  '<REACTANT',
+  '<PRODUCT',
+  {maxNumberReactions: 4}
 )
 YIELD relationships
+WITH relationships,
+     [ rel in relationships | startNode(rel)] AS startNodes,
+     [ rel in relationships | endNode(rel)] AS endNodes
+WITH relationships, startNodes + endNodes AS allNodes
+RETURN
+    relationships,
+    apoc.coll.toSet(allNodes) AS nodes
 ----
 Replace the MATCH statement with any other query to fetch the desired molecule, and adjust node labels, relationship types, and parameters as needed. 
 
