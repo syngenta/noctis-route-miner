@@ -1,6 +1,8 @@
 image::https://img.shields.io/badge/License-MIT-blue.svg[License: MIT, link=https://opensource.org/licenses/MIT]
-image::https://raw.githubusercontent.com/syngenta/noctis-route-miner/import/noctis.route.miner.png[Noctis Route Miner Logo]
-
+[.text-center]
+====
+image::noctis.route.miner.png[Noctis Route Miner Logo, width=300]
+====
 
 # Noctis Route Miner
 
