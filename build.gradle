@@ -39,6 +39,6 @@ dependencies {
 //    testCompile group: 'org.neo4j.community', name: 'it-test-support', version: neo4jVersion
 }
 
-version = "1.0"
+version = "1.0.0"
 group = "com.syngenta.crop-protection"
 
