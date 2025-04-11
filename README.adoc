@@ -30,7 +30,7 @@ This project is a Java library built with Gradle, designed to work with Neo4j.
 
 **Download the Latest Release:** 
   
-Grab the latest JAR file from the [https://github.com/syngenta/noctis-route-miner/releases/tag/1..0.0]Release page.
+Grab the latest JAR file from the https://github.com/syngenta/noctis-route-miner/releases/tag/1.0.0[Release] page.
 
 **Install in Neo4j:**  
   
