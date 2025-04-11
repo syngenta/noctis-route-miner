@@ -1,3 +1,7 @@
+image::https://img.shields.io/badge/License-MIT-blue.svg[License: MIT, link=https://opensource.org/licenses/MIT]
+image::https://raw.githubusercontent.com/syngenta/noctis-route-miner/import/noctis.route.miner.png[Noctis Route Miner Logo]
+
+
 # Noctis Route Miner
 
 Noctis Route Miner is part of the Noctis publication. In this repository, you will find a tool designed to extract all possible synthetic routes from a reaction network. Consider a chemical network consisting of chemical equations (reactions) and molecules (compounds). In this network, a molecule produced by one reaction might serve as an ingredient for another reaction. A "route" is defined as a sufficient subgraph required to produce a given compound. The algorithm uses a breadth-first search approach to systematically mine routes—from the target compound to the starting materials. The tool is implemented as a Java plugin and is accessible via a dedicated Neo4j query either directly through Neo4j Desktop or through Noctis. For more details about the design and workflow, we invite you to read the article.
@@ -90,9 +94,7 @@ For more details, we invite you to check NOCTIS repo or the publication.
 ## Contributing
 Contributions are welcome! If you have ideas for improvements or encounter issues, please feel free to fork the repository and submit a pull request. For major changes, it is recommended to open an issue first to discuss what you would like to change.
 
-## License
-This project is distributed under the LICENSE NAME HERE.
-(Replace with your actual license details.)
+
 
 ## Contact
 For any questions or further information, please open an issue on the repository or contact the maintainers.
