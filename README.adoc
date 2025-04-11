@@ -1,0 +1,102 @@
+image::https://img.shields.io/badge/License-MIT-blue.svg[License: MIT, link=https://opensource.org/licenses/MIT]
+[.text-center]
+====
+image::noctis.route.miner.png[Noctis Route Miner Logo, width=300]
+====
+
+# Noctis Route Miner
+
+Noctis Route Miner is part of the Noctis publication. In this repository, you will find a tool designed to extract all possible synthetic routes from a reaction network. Consider a chemical network consisting of chemical equations (reactions) and molecules (compounds). In this network, a molecule produced by one reaction might serve as an ingredient for another reaction. A "route" is defined as a sufficient subgraph required to produce a given compound. The algorithm uses a breadth-first search approach to systematically mine routes—from the target compound to the starting materials. The tool is implemented as a Java plugin and is accessible via a dedicated Neo4j query either directly through Neo4j Desktop or through Noctis. For more details about the design and workflow, we invite you to read the article.
+
+## Requirements
+
+- Java Development Kit (JDK) 17
+- https://gradle.org/install/[Gradle] (or use the included Gradle wrapper) 
+
+## Project Setup
+
+This project is a Java library built with Gradle, designed to work with Neo4j.
+
+### Dependencies
+
+- Neo4j Kernel 5.14.0
+- JUnit Jupiter 5.8.2 (testing)
+- Neo4j Harness 5.14.0 (testing)
+- Mockito Core 4.3.0 (testing)
+
+## Installation
+
+### Using the Compiled JAR
+
+**Download the Latest Release:** 
+  
+Grab the latest JAR file from the [https://github.com/syngenta/noctis-route-miner/releases/tag/1..0.0]Release page.
+
+**Install in Neo4j:**  
+  
+- Drop the JAR file into your Neo4j plugins folder.  
+- Restart your Neo4j database.
+
+### Building from Source
+
+If you prefer to build the project yourself:
+
+**Clone the Repository:**
+----
+$ bash
+git clone https://github.com/your_username/noctis-route-miner.git
+cd noctis-route-miner
+----
+
+**Build with Gradle (Windows Example):**
+----
+$ bash
+.\gradlew build
+----
+This will compile the project and produce the JAR file for use in ./build/libs folder
+
+## Usage  
+After installation, you can use the following Cypher query to invoke the route extraction functionality:
+
+**Directly through Neo4j Desktop:**
+----
+$ cypher
+MATCH (paracetamol: {smiles: 'CC(=O)Nc1ccc(O)cc1'})
+CALL noctis.route.miner(
+  paracetamol,
+  'Molecule',
+  'ChemicalEquation',
+  '<REACTANT',
+  '<PRODUCT',
+  {maxNumberReactions: 4, nodeStopProperty:'TOXIC' }
+)
+YIELD relationships
+WITH relationships,
+     [ rel in relationships | startNode(rel)] AS startNodes,
+     [ rel in relationships | endNode(rel)] AS endNodes
+WITH relationships, startNodes + endNodes AS allNodes
+RETURN
+    relationships,
+    apoc.coll.toSet(allNodes) AS nodes
+----
+Replace the MATCH statement with any other query to fetch the desired molecule, and adjust node labels, relationship types, and parameters as needed. 
+
+**Through NOCTIS:**
+
+----
+$ python
+repo = Neo4jRepository(uri=YOUR_URI, username=USER, password=SECUREPASSWORD, database=DB)
+routes = repo.execute_query('get_routes', root_node_uid="UID1", max_number_reactions=7, node_stop_property='REDFLAG')
+
+----
+For more details, we invite you to check NOCTIS repo or the publication. 
+
+**Attention!!!**: A uid property is required on all Molecule and ChemicalEquation nodes for the algorithm to run correctly.
+
+## Contributing
+Contributions are welcome! If you have ideas for improvements or encounter issues, please feel free to fork the repository and submit a pull request. For major changes, it is recommended to open an issue first to discuss what you would like to change.
+
+
+
+## Contact
+For any questions or further information, please open an issue on the repository or contact the maintainers.
